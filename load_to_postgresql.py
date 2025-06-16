@@ -3,13 +3,11 @@ import psycopg2
 from sqlalchemy import create_engine
 
 # CONFIGURE YOUR DATABASE CONNECTION DETAILS
-DB_NAME= 'churn_db'
-DB_USER= 'postgres'
-DB_PASS= 'postgres'
-DB_HOST= 'localhost'
-DB_PORT= '5432'
-
-
+DB_NAME = 'churn_db'
+DB_USER = 'postgres'
+DB_PASS = 'your_password'
+DB_HOST = 'localhost'
+DB_PORT = '5432'
 CSV_FILE = 'output/churn_predictions.csv'
 TABLE_NAME = 'churn_predictions'
 
