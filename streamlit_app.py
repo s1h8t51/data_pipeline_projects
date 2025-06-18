@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load CSV from GitHub
-url = "https://raw.githubusercontent.com/s1h8t51/data_analytics_projects/0870241b44736bcebd9720438a979da2fc517706/churn_predictions.csv"
+url = "https://raw.githubusercontent.com/s1h8t51/data_analytics_projects/main/churn_predictions.csv"
 df = pd.read_csv(url)
 
 # Title
