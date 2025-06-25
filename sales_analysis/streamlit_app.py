@@ -45,10 +45,9 @@ st.pyplot(fig3)
 
 # 4. Weekly Revenue Trend by Sales Method
 st.markdown("### 📊 Weekly Revenue by Sales Method")
-#weekly_revenue = df.groupby(["week", "sales_method"])["revenue"].sum().reset_index()
+weekly_revenue = df.groupby(["week", "sales_method"])["revenue"].sum().reset_index()
 fig4, ax4 = plt.subplots()
-plt.figure(figsize=(10, 6))
-sns.violinplot(x='sales_method', y='years_as_customer', data=df, inner='quartile')
+sns.lineplot(data=weekly_revenue, x="week", y="revenue", hue="sales_method", marker="o", ax=ax4)
 ax4.set_title("Weekly Revenue Trend by Sales Method")
 st.pyplot(fig4)
 
