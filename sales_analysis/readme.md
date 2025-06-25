@@ -5,11 +5,10 @@ This project is based on a real-world dataset provided in a certification exam a
 
 ## 🗂️ Project Structure
 sales_analysis/
-│
-├── corrected_data.csv # Cleaned dataset used in analysis
-├── streamlit_sales_dashboard_v2.py # Final Streamlit dashboard
-├── requirements.txt # Python dependencies
-└── README.md # Project overview
+- corrected_data.csv # Cleaned dataset used in analysis
+- streamlit_sales_dashboard_v2.py # Final Streamlit dashboard
+- requirements.txt # Python dependencies
+- README.md # Project overview
 
 ---
 
