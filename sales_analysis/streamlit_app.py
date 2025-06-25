@@ -69,4 +69,7 @@ with col4:
 st.subheader("🌐 Website Visits Weekly (by Sales Method)")
 weekly_visits = df.groupby(["week", "sales_method"])["nb_site_visits"].mean().reset_index()
 fig5, ax5 = plt.subplots(figsize=(10, 3))
-sns.lineplot(data=weekly_visit_
+sns.lineplot(data=weekly_visits, x="week", y="nb_site_visits", hue="sales_method", marker="o", ax=ax5)
+ax5.set_title("Website Visits Over Time", fontsize=10)
+ax5.set_ylabel("Avg. Visits")
+st.pyplot(fig5)
