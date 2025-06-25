@@ -3,59 +3,64 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the dataset
+st.set_page_config(layout="wide")  # Full-width layout
+
+# Load your dataset
 url = "https://raw.githubusercontent.com/s1h8t51/data_analytics_projects/main/sales_analysis/corrected_data.csv"
 df = pd.read_csv(url)
 
-st.title("📊 Enhanced Sales Method Analysis Dashboard")
+st.title("📊 Sales Analysis Dashboard")
 
-# KPI Section
+# KPIs on one row
 st.markdown("### 🔑 Key Performance Indicators")
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Total Revenue", f"${df['revenue'].sum():,.0f}")
-col2.metric("Units Sold", f"{df['nb_sold'].sum():,}")
-col3.metric("Avg. Site Visits", f"{df['nb_site_visits'].mean():.2f}")
-col4.metric("Unique Customers", df['customer_id'].nunique())
+kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+kpi1.metric("Total Revenue", f"${df['revenue'].sum():,.0f}")
+kpi2.metric("Units Sold", f"{df['nb_sold'].sum():,}")
+kpi3.metric("Avg. Site Visits", f"{df['nb_site_visits'].mean():.2f}")
+kpi4.metric("Unique Customers", df['customer_id'].nunique())
 
-# 1. Sales Methods Overview
-st.markdown("### 🛒 Sales Method Types")
-sales_method_counts = df['sales_method'].value_counts().reset_index()
-sales_method_counts.columns = ['sales_method', 'count']
-fig1, ax1 = plt.subplots()
-sns.barplot(data=sales_method_counts, x='sales_method', y='count', ax=ax1)
-ax1.set_title("Sales Method Distribution")
-ax1.set_ylabel("Count")
-st.pyplot(fig1)
+# Row 1: Sales Method Types + Revenue Distribution
+with st.container():
+    col1, col2 = st.columns(2)
 
-# 2. Revenue Distribution by Customer Segment (Years as Customer)
-st.markdown("### 💰 Revenue Distribution by Customer Segment")
-fig2, ax2 = plt.subplots()
-sns.histplot(data=df, x='revenue', bins=50, kde=True, hue='sales_method', multiple='stack')
-ax2.set_title("Revenue Distribution by Customer Segment")
-ax2.set_xlabel("Revenue")
-st.pyplot(fig2)
+    with col1:
+        st.markdown("### 🛒 Sales Method Types")
+        sales_method_counts = df['sales_method'].value_counts().reset_index()
+        sales_method_counts.columns = ['sales_method', 'count']
+        fig1, ax1 = plt.subplots()
+        sns.barplot(data=sales_method_counts, x='sales_method', y='count', ax=ax1)
+        ax1.set_ylabel("Count")
+        st.pyplot(fig1)
 
-# 3. Revenue by Sales Method
-st.markdown("### 📈 Total Revenue by Sales Method")
-revenue_sales_method = df.groupby("sales_method")["revenue"].sum().reset_index()
-fig3, ax3 = plt.subplots()
-sns.boxplot(x='sales_method', y='revenue', data=df,hue="sales_method")
-ax3.set_title("Total Revenue by Sales Method")
-st.pyplot(fig3)
+    with col2:
+        st.markdown("### 💰 Revenue Distribution by Customer Segment")
+        fig2, ax2 = plt.subplots()
+        sns.histplot(data=df, x="revenue", hue="years_as_customer", multiple="stack", bins=20, ax=ax2)
+        ax2.set_xlabel("Revenue")
+        st.pyplot(fig2)
 
-# 4. Weekly Revenue Trend by Sales Method
-st.markdown("### 📊 Weekly Revenue by Sales Method")
-weekly_revenue = df.groupby(["week", "sales_method"])["revenue"].sum().reset_index()
-fig4, ax4 = plt.subplots()
-sns.lineplot(data=weekly_revenue, x="week", y="revenue", hue="sales_method", marker="o", ax=ax4)
-ax4.set_title("Weekly Revenue Trend by Sales Method")
-st.pyplot(fig4)
+# Row 2: Revenue by Sales Method + Weekly Revenue
+with st.container():
+    col3, col4 = st.columns(2)
 
-# 5. Site Visits Distribution by Sales Method
+    with col3:
+        st.markdown("### 📈 Total Revenue by Sales Method")
+        revenue_sales_method = df.groupby("sales_method")["revenue"].sum().reset_index()
+        fig3, ax3 = plt.subplots()
+        sns.barplot(data=revenue_sales_method, x="sales_method", y="revenue", ax=ax3)
+        st.pyplot(fig3)
+
+    with col4:
+        st.markdown("### 📊 Weekly Revenue by Sales Method")
+        weekly_revenue = df.groupby(["week", "sales_method"])["revenue"].sum().reset_index()
+        fig4, ax4 = plt.subplots()
+        sns.lineplot(data=weekly_revenue, x="week", y="revenue", hue="sales_method", marker="o", ax=ax4)
+        st.pyplot(fig4)
+
+# Row 3: Site Visits by Sales Method
 st.markdown("### 🌐 Website Visits Distribution by Sales Method")
 site_visit_data = df.groupby(["week", "sales_method"])["nb_site_visits"].mean().reset_index()
 fig5, ax5 = plt.subplots()
-sns.boxplot(x='sales_method', y='nb_site_visits', data=df,hue="sales_method")
-ax5.set_title("Weekly Avg. Site Visits by Sales Method")
-ax5.set_ylabel("Average Site Visits")
+sns.lineplot(data=site_visit_data, x="week", y="nb_site_visits", hue="sales_method", marker="o", ax=ax5)
+ax5.set_ylabel("Avg. Site Visits")
 st.pyplot(fig5)
