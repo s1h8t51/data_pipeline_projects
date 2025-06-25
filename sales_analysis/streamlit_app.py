@@ -3,42 +3,59 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load CSV from GitHub raw link
-url = "https://raw.githubusercontent.com/s1h8t51/data_analytics_projects/23a7804e005ac9aaae5fe945c34964a548b1a0f1/sales_analysis/corrected_data.csv"
+# Load the dataset
+url = "https://raw.githubusercontent.com/s1h8t51/data_analytics_projects/main/sales_analysis/corrected_data.csv"
 df = pd.read_csv(url)
 
-# Title and preview
-st.title("📊 Customer Churn Prediction Dashboard")
-st.write("Data Preview:")
-st.dataframe(df.head())
+st.title("📊 Enhanced Sales Method Analysis Dashboard")
 
-# KPIs
-total_customers = len(df)
-churn_rate = df["Actual_Churn"].mean()
-accuracy = (df["Actual_Churn"] == df["Predicted_Churn"]).mean()
-high_risk_count = (df["Churn_Probability"] > 0.7).sum()
-
+# KPI Section
 st.markdown("### 🔑 Key Performance Indicators")
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Total Customers", total_customers)
-col2.metric("Churn Rate", f"{churn_rate:.2%}")
-col3.metric("Accuracy", f"{accuracy:.2%}")
-col4.metric("High-Risk Customers", high_risk_count)
+col1.metric("Total Revenue", f"${df['revenue'].sum():,.0f}")
+col2.metric("Units Sold", f"{df['nb_sold'].sum():,}")
+col3.metric("Avg. Site Visits", f"{df['nb_site_visits'].mean():.2f}")
+col4.metric("Unique Customers", df['customer_id'].nunique())
 
-# Bar Chart: Actual vs Predicted Churn
-st.markdown("### 📉 Actual vs Predicted Churn")
-churn_counts = df.groupby(["Actual_Churn", "Predicted_Churn"]).size().unstack(fill_value=0)
-st.bar_chart(churn_counts)
+# 1. Sales Methods Overview
+st.markdown("### 🛒 Sales Method Types")
+sales_method_counts = df['sales_method'].value_counts().reset_index()
+sales_method_counts.columns = ['sales_method', 'count']
+fig1, ax1 = plt.subplots()
+sns.barplot(data=sales_method_counts, x='sales_method', y='count', ax=ax1)
+ax1.set_title("Sales Method Distribution")
+ax1.set_ylabel("Count")
+st.pyplot(fig1)
 
-# Distribution of Churn Probability
-st.markdown("### 📈 Churn Probability Distribution")
-fig, ax = plt.subplots()
-sns.histplot(df["Churn_Probability"], bins=20, kde=True, color='orange', ax=ax)
-st.pyplot(fig)
+# 2. Revenue Distribution by Customer Segment (Years as Customer)
+st.markdown("### 💰 Revenue Distribution by Customer Segment")
+fig2, ax2 = plt.subplots()
+sns.histplot(data=df, x="revenue", hue="years_as_customer", multiple="stack", bins=20, ax=ax2)
+ax2.set_title("Revenue Distribution by Customer Segment")
+ax2.set_xlabel("Revenue")
+st.pyplot(fig2)
 
-# High-risk filtering
-st.markdown("### 🔍 High-Risk Customers Table")
-threshold = st.slider("Churn Probability Threshold", 0.0, 1.0, 0.7)
-high_risk_df = df[df["Churn_Probability"] > threshold]
-st.write(f"Filtered to {len(high_risk_df)} customers above threshold:")
-st.dataframe(high_risk_df.reset_index(drop=True))
+# 3. Revenue by Sales Method
+st.markdown("### 📈 Total Revenue by Sales Method")
+revenue_sales_method = df.groupby("sales_method")["revenue"].sum().reset_index()
+fig3, ax3 = plt.subplots()
+sns.barplot(data=revenue_sales_method, x="sales_method", y="revenue", ax=ax3)
+ax3.set_title("Total Revenue by Sales Method")
+st.pyplot(fig3)
+
+# 4. Weekly Revenue Trend by Sales Method
+st.markdown("### 📊 Weekly Revenue by Sales Method")
+weekly_revenue = df.groupby(["week", "sales_method"])["revenue"].sum().reset_index()
+fig4, ax4 = plt.subplots()
+sns.lineplot(data=weekly_revenue, x="week", y="revenue", hue="sales_method", marker="o", ax=ax4)
+ax4.set_title("Weekly Revenue Trend by Sales Method")
+st.pyplot(fig4)
+
+# 5. Site Visits Distribution by Sales Method
+st.markdown("### 🌐 Website Visits Distribution by Sales Method")
+site_visit_data = df.groupby(["week", "sales_method"])["nb_site_visits"].mean().reset_index()
+fig5, ax5 = plt.subplots()
+sns.lineplot(data=site_visit_data, x="week", y="nb_site_visits", hue="sales_method", marker="o", ax=ax5)
+ax5.set_title("Weekly Avg. Site Visits by Sales Method")
+ax5.set_ylabel("Average Site Visits")
+st.pyplot(fig5)
