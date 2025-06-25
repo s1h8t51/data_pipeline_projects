@@ -36,6 +36,7 @@ plt.xlabel("Revenue")
 plt.ylabel("Count")
 plt.tight_layout()
 plt.show()
+st.pyplot(fig2)
 
 # 3. Revenue by Sales Method
 st.markdown("### 📈 Total Revenue by Sales Method")
@@ -44,6 +45,7 @@ fig3, ax3 = plt.subplots()
 sns.boxplot(x='sales_method', y='revenue', data=df,hue="sales_method")
 #plt.title("Revenue by Sales Method")
 plt.show()
+st.pyplot(fig3)
 
 # 4. Weekly Revenue Trend by Sales Method
 st.markdown("### 📊 Weekly Revenue by Sales Method")
@@ -56,6 +58,7 @@ plt.xlabel('Sales Method')
 plt.ylabel('Years as Customer')
 plt.tight_layout()
 plt.show()
+st.pyplot(fig4)
 
 # 5. Site Visits Distribution by Sales Method
 st.markdown("### 🌐 Website Visits Distribution by Sales Method")
