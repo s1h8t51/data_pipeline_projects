@@ -25,7 +25,7 @@ with col5:
     st.subheader("Sales Method Types")
     method_counts = df['sales_method'].value_counts().reset_index()
     method_counts.columns = ['sales_method', 'count']
-    fig1, ax1 = plt.subplots(figsize=(6, 4))
+    fig1, ax1 = plt.subplots(figsize=(5, 3))
     sns.barplot(data=method_counts, x='sales_method', y='count', ax=ax1)
     ax1.set_ylabel("Count")
     ax1.set_title("Sales Method Distribution")
@@ -33,7 +33,7 @@ with col5:
 
 with col6:
     st.subheader("Revenue Distribution by Customer Segment")
-    fig2 = plt.figure(figsize=(10, 6))
+    fig2 = plt.figure(figsize=(6, 4))
     sns.histplot(data=df, x='revenue', bins=30, kde=True, hue='sales_method', multiple='stack')
     plt.title("Revenue Distribution by Customer Segment")
     plt.xlabel("Revenue")
@@ -46,7 +46,7 @@ col7, col8 = st.columns(2)
 with col7:
     st.subheader("Revenue by Sales Method")
     revenue_by_method = df.groupby("sales_method")["revenue"].sum().reset_index()
-    fig3, ax3 = plt.subplots(figsize=(6, 4))
+    fig3, ax3 = plt.subplots(figsize=5, 3))
     sns.barplot(data=revenue_by_method, x="sales_method", y="revenue", ax=ax3)
     ax3.set_title("Total Revenue by Sales Method")
     st.pyplot(fig3)
