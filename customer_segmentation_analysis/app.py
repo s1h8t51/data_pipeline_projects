@@ -5,7 +5,7 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Load data
-df = pd.read_csv("final_credit_card_data.csv")
+df = pd.read_csv("customer_segmentation_analysis/final_credit_card_data.csv")
 
 # (Re-do feature engineering here, as above, or save processed file)
 
