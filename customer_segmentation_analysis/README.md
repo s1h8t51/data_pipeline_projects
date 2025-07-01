@@ -51,6 +51,8 @@ This project analyzes credit card customer data to extract actionable business i
 
 ## Screenshots
 ![newplot-3](https://github.com/user-attachments/assets/84b29b7b-157a-467e-a033-69e259df1d9e)
-![newplot](https://github.com/user-attachments/assets/eb439a1e-fef1-4e71-9281-be42cfb32cca)
-![newplot-2](https://github.com/user-attachments/assets/0793c90f-102d-4613-aa0f-ad456bfa991d)
+<img width="693" alt="Screenshot 2025-07-01 at 11 49 19 AM" src="https://github.com/user-attachments/assets/bb848494-3c50-461e-8197-a7fe7de53279" />
+<img width="689" alt="Screenshot 2025-07-01 at 11 48 58 AM" src="https://github.com/user-attachments/assets/a1826045-1e1c-4f00-a178-4d10a45726f0" />
+
+
 
