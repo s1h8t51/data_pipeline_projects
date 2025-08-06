@@ -1,5 +1,4 @@
 [server]
 headless = true
 
-[packages]
-requirements = "requirements.txt"
+
