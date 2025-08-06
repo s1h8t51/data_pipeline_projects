@@ -74,7 +74,7 @@ if run_forecast:
         
         # --- Evaluation Section ---
         # Merge actual sales into comparison
-        comparison = comparison.merge(comparison,test_sd[['Date', 'Weekly_Sales']], on='Date', how='left')
+        comparison = comparison.merge(comparison,test_sd, on='Date', how='left')
         
         # Evaluate model accuracy
         
