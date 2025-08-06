@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from prophet import Prophet
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 import numpy as np
 import os
 # Load data
@@ -75,7 +76,6 @@ if run_forecast:
         comparison = comparison.merge(test_sd[['Date', 'Weekly_Sales']], on='Date', how='left')
         
         # Evaluate model accuracy
-        from sklearn.metrics import mean_absolute_error, mean_squared_error
         
         prophet_rmse = mean_squared_error(comparison['Weekly_Sales'], comparison['Prophet'], squared=False)
         sarima_rmse = mean_squared_error(comparison['Weekly_Sales'], comparison['SARIMA'], squared=False)
