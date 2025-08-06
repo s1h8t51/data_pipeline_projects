@@ -74,15 +74,15 @@ if run_forecast:
         
         # --- Evaluation Section ---
         # Merge actual sales into comparison
-        comparison = pd.merge(comparison,test_sd, on='Date', how='left')
+        comparison_final = pd.merge(comparison,test_sd, on='Date', how='left')
         
         # Evaluate model accuracy
         
-        prophet_rmse = mean_squared_error(comparison['Weekly_Sales'], comparison['Prophet'], squared=False)
-        sarima_rmse = mean_squared_error(comparison['Weekly_Sales'], comparison['SARIMA'], squared=False)
+        prophet_rmse = mean_squared_error(comparison_final['Weekly_Sales'], comparison['Prophet'], squared=False)
+        sarima_rmse = mean_squared_error(comparison_final['Weekly_Sales'], comparison['SARIMA'], squared=False)
         
-        prophet_mae = mean_absolute_error(comparison['Weekly_Sales'], comparison['Prophet'])
-        sarima_mae = mean_absolute_error(comparison['Weekly_Sales'], comparison['SARIMA'])
+        prophet_mae = mean_absolute_error(comparison_final['Weekly_Sales'], comparison['Prophet'])
+        sarima_mae = mean_absolute_error(comparison_final['Weekly_Sales'], comparison['SARIMA'])
         
         # Display metrics
         st.subheader("📊 Model Evaluation Metrics")
