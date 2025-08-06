@@ -39,12 +39,14 @@ Retail_sales_forecasting_analysis/
 <img width="2940" height="1912" alt="Screenshot 2025-08-06 at 6 10 07 PM" src="https://github.com/user-attachments/assets/02d148c5-7783-4d93-bf8c-8dd0614974a0" />
 
     
-🧠 Future Scope
+## 🧠 Future Scope
 Extend to hourly/daily forecasts
 Incorporate external regressors (holiday effects, promotions)
 Auto model selection based on performance
-🤝 Contributing
+
+## 🤝 Contributing
 Open to suggestions or improvements. Feel free to fork the repo and create pull requests.
-📬 Contact
+
+## 📬 Contact
 Feel free to connect with me on LinkedIn for collaboration or opportunities!
 https://www.linkedin.com/in/sahitya-gantala-7ab647113/
