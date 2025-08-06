@@ -1,0 +1,5 @@
+[server]
+headless = true
+
+[packages]
+requirements = "sales_forecast_requirements.txt"
