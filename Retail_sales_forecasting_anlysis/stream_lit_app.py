@@ -5,11 +5,17 @@ import statsmodels.api as sm
 from prophet import Prophet
 from sklearn.metrics import mean_squared_error
 import numpy as np
-
+import os
 # Load data
 st.set_page_config(layout="wide")
-walmart_df = pd.read_csv("train.csv", parse_dates=["Date"])
-test = pd.read_csv("test.csv", parse_dates=["Date"])
+
+base_path = os.path.dirname(__file__)
+df_path = os.path.join(base_path, "walmart_df.csv")
+test_path = os.path.join(base_path, "test.csv")
+
+walmart_df = pd.read_csv(df_path, parse_dates=["Date"])
+test = pd.read_csv(test_path, parse_dates=["Date"])
+
 
 st.title("📈 Walmart Weekly Sales Forecast Dashboard")
 st.markdown("""
