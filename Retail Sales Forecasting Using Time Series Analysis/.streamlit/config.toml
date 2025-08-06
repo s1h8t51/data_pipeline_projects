@@ -2,4 +2,4 @@
 headless = true
 
 [packages]
-requirements = "sales_forecast_requirements.txt"
+requirements = "requirements.txt"
