@@ -8,7 +8,7 @@ import numpy as np
 
 # Load data
 st.set_page_config(layout="wide")
-walmart_df = pd.read_csv("walmart_df.csv", parse_dates=["Date"])
+walmart_df = pd.read_csv("train.csv", parse_dates=["Date"])
 test = pd.read_csv("test.csv", parse_dates=["Date"])
 
 st.title("📈 Walmart Weekly Sales Forecast Dashboard")
