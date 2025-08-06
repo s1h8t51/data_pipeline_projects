@@ -72,34 +72,6 @@ if run_forecast:
         comparison['Prophet'] = prophet_forecast['Prophet'].values
         comparison['SARIMA'] = sarima_forecast['SARIMA'].values
         
-        # --- Evaluation Section ---
-        # Merge actual sales into comparison
-        comparison_final = pd.merge(comparison,test_sd, on='Date', how='left')
-        
-        # Evaluate model accuracy
-        
-        prophet_rmse = mean_squared_error(comparison_final['Weekly_Sales'], comparison['Prophet'], squared=False)
-        sarima_rmse = mean_squared_error(comparison_final['Weekly_Sales'], comparison['SARIMA'], squared=False)
-        
-        prophet_mae = mean_absolute_error(comparison_final['Weekly_Sales'], comparison['Prophet'])
-        sarima_mae = mean_absolute_error(comparison_final['Weekly_Sales'], comparison['SARIMA'])
-        
-        # Display metrics
-        st.subheader("📊 Model Evaluation Metrics")
-        st.write(f"**Prophet RMSE:** {prophet_rmse:,.2f} | **MAE:** {prophet_mae:,.2f}")
-        st.write(f"**SARIMA RMSE:** {sarima_rmse:,.2f} | **MAE:** {sarima_mae:,.2f}")
-        
-        # Determine best model
-        better_model = "Prophet" if prophet_rmse < sarima_rmse else "SARIMA"
-        st.success(f"✅ Based on RMSE, **{better_model}** performs better for Store {selected_store}, Dept {selected_dept}.")
-        
-        # Optional: RMSE Bar Chart
-        st.subheader("📊 RMSE Comparison")
-        fig_rmse, ax_rmse = plt.subplots()
-        ax_rmse.bar(["Prophet", "SARIMA"], [prophet_rmse, sarima_rmse], color=["red", "green"])
-        ax_rmse.set_ylabel("RMSE")
-        ax_rmse.set_title("Root Mean Squared Error by Model")
-        st.pyplot(fig_rmse)
 
 
         # KPIs
