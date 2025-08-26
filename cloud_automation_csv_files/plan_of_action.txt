@@ -1,0 +1,70 @@
+step1 : dockerfile ---> download docker and airflow image along with required python files --> custom image created --> sleek_airflow:latest
+step2 : docker-compose.yml ---> creating .yml file 
+        services → what containers you want + how they run.
+        volumes → persistent storage definitions. -->dag run history or logs is not persistance in docker meaning refreshed after every session so we maintain a separate storage
+        networks → how services talk to each other.
+        command, ports, environment, etc. → service-level options.
+step3: requirements.txt ---> required packages are placed --> above two files are important to build docker composed airflow 
+step4: login onto airflow web service with image created in docker --> login detain is available in a file where image is created
+step5: .py file is created where dags are defined 
+        Operator = a template for a task
+        main_opetrators
+        PythonOperator → run a Python function.
+              Key params:
+                     task_id (unique name in DAG)
+                     python_callable (Python function)
+                     op_args, op_kwargs (args for the function)
+                     provide_context (if you want execution context like ds)
+        BashOperator → run a Bash shell command/script.
+              Key params:
+                      task_id
+                      bash_command (the shell command string or script)
+                      env (optional dict of env vars)
+        EmailOperator → send emails.
+              Key params:
+                      task_id
+                      to, subject, html_content
+        -------------**************---------------------
+        Action Operators: run something (Python, Bash, SQL).
+        Transfer Operators: move data.
+        Sensors: wait for conditions.
+        Branching: conditional paths.
+        EmptyOperator: placeholders.
+        Custom: your own.
+        ------------***************-----------------------
+        Most operators share these BaseOperator params:
+        task_id → required, unique ID in the DAG.
+        dag → which DAG the task belongs to (optional if inside DAG context).
+        owner → logical owner name (default "airflow").
+        depends_on_past → if True, only runs if previous run of this task succeeded.
+        start_date / end_date → when task can run.
+        retries → how many times to retry on failure.
+        retry_delay → how long to wait between retries.
+        execution_timeout → max runtime before failing.
+        trigger_rule → when to run (default all_success, can be all_failed, all_done, etc.).
+        pool → resource pool name for concurrency limits.
+step6: deside on cron expression : when to trigger your dag
+       0 → minute (0th minute = on the hour)
+       23 → hour (23rd hour = 11 PM)
+       * → every day of the month
+       * → every month
+       * → every day of the week
+       --------------------------
+       define the funtions 
+       xcom_push → send data (save it).
+       xcom_pull → receive data (retrieve it).
+       Used to pass values (like file lists, dates, IDs) between tasks.
+       ---------------------------------------------------------------
+       **ctx = the Airflow context dictionary passed into your Python function, containing info about the DAG run, task instance, dates, and XCom access.
+       Some common keys you’ll see:
+        ti → TaskInstance object (lets you use xcom_push / xcom_pull).
+        ds → execution date (string, "YYYY-MM-DD").
+        ts → full timestamp string.
+        dag → DAG object.
+        dag_run → DAGRun object (info about this run).
+        params → custom parameters you can pass in.
+        execution_date → datetime object of the run date.
+        next_execution_date → when the DAG will run next.
+step7:dag is visible in UI
+
+        
