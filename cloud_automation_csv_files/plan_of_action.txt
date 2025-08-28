@@ -5,6 +5,8 @@ step2 : docker-compose.yml ---> creating .yml file
         networks → how services talk to each other.
         command, ports, environment, etc. → service-level options.
 step3: requirements.txt ---> required packages are placed --> above two files are important to build docker composed airflow 
+        after new library added better to run --->  pip install -r requirements.txt
+
 step4: login onto airflow web service with image created in docker --> login detain is available in a file where image is created
 step5: .py file is created where dags are defined 
         Operator = a template for a task
@@ -66,5 +68,13 @@ step6: deside on cron expression : when to trigger your dag
         execution_date → datetime object of the run date.
         next_execution_date → when the DAG will run next.
 step7:dag is visible in UI
+step8:create a airflow connection 
+        -- aws connection  -- airflow -- connections -- enter secret and acccess keys 
+step9:create required varibales in airflow to make your program dynamic 
+        LANDING_URI -- aws bucket url , 
+        CURATED_PREFIX -- folder inside bucket for tranformed data
+        ATHENA_OUTPUT --- query tool conennected url
+step10:write scripts for tranformation
+step11:
 
         
