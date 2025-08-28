@@ -1,0 +1,7 @@
+apache-airflow-providers-github
+apache-airflow[amazon]
+botocore
+boto3
+pandas
+pyarrow
+# Add more provider packages as needed
