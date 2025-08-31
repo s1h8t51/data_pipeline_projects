@@ -1,12 +1,11 @@
-version: '3'
-
 services:
   sleek-airflow:
     image: sleek-airflow:latest
-    
     volumes:
       - ./airflow:/opt/airflow
-
     ports:
       - "8080:8080"
     command: airflow standalone
+    environment:
+      - _PIP_ADDITIONAL_REQUIREMENTS=apache-airflow-providers-google>=12 apache-airflow-providers-amazon>=8
+      - AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT=google-cloud-platform://?extra__google_cloud_platform__keyfile_path=/opt/airflow/keys/gcp-sa.json&extra__google_cloud_platform__project=artful-willow-469621-u6
