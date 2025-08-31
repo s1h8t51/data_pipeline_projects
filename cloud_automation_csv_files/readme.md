@@ -26,11 +26,11 @@ It’s designed to be production-minded but minimal, so you can extend it to lar
 ## 🧱 Architecture (High Level)
 
 Local CSV Folder
-└── discover_files
-└── validate_files
-└── optional_transform
-└── partition_and_stage (split CSV by partition key)
-└── upload_partitions_to_s3
+- └── discover_files
+- └── validate_files
+- └── optional_transform
+- └── partition_and_stage (split CSV by partition key)
+- └── upload_partitions_to_s3
 
 ## 📁 Repo Structure
 
@@ -86,9 +86,9 @@ DATE_FORMAT=%Y-%m-%d                   # used if partitioning by date strings
 
 # Airflow Connections (UI → Admin → Connections)
 AWS
-Conn ID: aws_default
-Conn Type: Amazon Web Services
-Login: AWS_ACCESS_KEY_ID
-Password: AWS_SECRET_ACCESS_KEY
-Extra (optional): {"region_name":"us-east-1"}
+- Conn ID: aws_default
+- Conn Type: Amazon Web Services
+- Login: AWS_ACCESS_KEY_ID
+- Password: AWS_SECRET_ACCESS_KEY
+- Extra (optional): {"region_name":"us-east-1"}
 
